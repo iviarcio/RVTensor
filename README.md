@@ -1,6 +1,13 @@
-# An out-of-tree MLIR dialect
+# A RVMath MLIR dialect
 
 This is an out-of-tree [MLIR](https://mlir.llvm.org/) RVMath dialect.
+
+The RISC-V Mathematics dialect, abbreviated as RVMath, introduces a suite of whole-tensor operations frequently utilized in Deep Neural
+Networks (DNNs), such as convolutions and matrix multiplications. The primary goal of RVMath is to facilitate the conversion of these
+high-level operations into vendor-specific RISC-V intrinsic operations, leveraging the capabilities of the vector and/or matrix Instruction
+Set Architecture (ISA). This ensures that operators from popular Machine Learning (ML) frameworks like TensorFlow and PyTorch can be
+efficiently represented within RVMath. Additionally, it is anticipated that tools will be developed to seamlessly translate operations from
+ML frameworks into RVMath, enhancing interoperability and optimization for RISC-V based implementations.
 
 ## Building - Component Build
 
@@ -14,7 +21,8 @@ To build the documentation from the TableGen description of the dialect operatio
 ```sh
 cmake --build . --target mlir-doc
 ```
-**Note**: Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with CMake in order to install `FileCheck` to the chosen installation prefix.
+**Note**: Make sure to pass `-DLLVM_INSTALL_UTILS=ON` when building LLVM with CMake in order to install `FileCheck` to the chosen
+installation prefix.
 
 ## Building - Monolithic Build
 
