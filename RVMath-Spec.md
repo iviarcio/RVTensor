@@ -49,7 +49,7 @@ indices must be non-negative.
 |NCHW|Batch, Channels, Height, Width|Feature maps|
 |NDCHW|Batch, Depth, Channels, Height, Width|Feature maps for 3D convolution|
 |OIHW|Output channels, Input channels, Filter Height, Filter Width|Weights|
-|IMHW|Input channels, Channel Multiplier, Filter Height, Filter Width|Weights for depthwise convolutions|
+|MIHW|Channel Multiplier, Input channels, Filter Height, Filter Width|Weights for depthwise convolutions|
 |DOIHW|Depth, Output Channels, Input Channels, Filter Height, Filter Width|Weights for 3D convolution|
 
 === Quantization
@@ -86,43 +86,122 @@ of the output.
 
 Performs a 2D convolution over the given tensor input, using the weight tensor.
 
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,IC,IH,IW]|4|Input tensor|
+|Input|T<weight_t>|weight|[OC,IC,KH,KW]|4|Weight kernel size KH x KW|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<i32_t>|pad|[4]|1|[pad_top, pad_bottom, pad_left, pad_right]|
+|Attribute|T<i32_t>|stride|[2]|1|[stride_y, stride_x]|
+|Attribute|T<i32_t>|dilation|[2]|1|[dilation_y, dilation_x]|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
+
 ==== CONV3D
 
 Performs a 3D convolution over the given input tensor.
+
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,ID,IC,IH,IW]|5|Input tensor|
+|Input|T<weight_t>|weight|[KD,OC,IC,KH,KW]|5|Weight kernel size KDxKHxKW|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<i32_t>|pad|[6]|1|[pad_d0, pad_d1, pad_top, pad_bottom, pad_left, pad_right]|
+|Attribute|T<i32_t>|stride|[3]|1|[stride_d, stride_y, stride_x]|
+|Attribute|T<i32_t>|dilation|[3]|1|[dilation_d, dilation_y, dilation_x]|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,OD,IC,OH,OW]|5|Output tensor|
 
 ==== DEPTHWISE_CONV2D
 
 Performs 2D convolutions separately over each channel of the given tensor input, using the weight tensor.
 
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,C,IH,IW]|4|Input tensor|
+|Input|T<weight_t>|weight|[M,C,KH,KW]|4|Weight kernel size KH x KW|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<i32_t>|pad|[4]|1|[pad_top, pad_bottom, pad_left, pad_right]|
+|Attribute|T<i32_t>|stride|[2]|1|[stride_y, stride_x]|
+|Attribute|T<i32_t>|dilation|[2]|1|[dilation_y, dilation_x]|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,C*M,OH,OW]|4|Output tensor|
+
 ==== FULLY_CONNECTED
 
 Performs a fully connected network.
 
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,IC]|2|Input tensor|
+|Input|T<weight_t>|weight|[OC,IC]|2|Weights|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,OC]|2|Output tensor|
+
 ==== MATMUL
+
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|A|[N,H,C]|3|Input tensor A, N matrices of size HxC|
+|Input|T<in_t>|B|[N,C,W]|3|Input tensor B, N matrices of size CxW|
+|Attribute|T<in_t>|A_qpoint|-|0|Input tensor A q-point. Must be zero for non-quantized types.|
+|Attribute|T<in_t>|B_qpoint|-|0|Input tensor B q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,H,W]|3|Output tensor, N matrices of size HxW|
 
 ==== TRANSPOSE_CONV2D
 
 Performs a 2D transposed convolution over the given tensor input, using the weights tensor.
 
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,IC,IH,IW]|4|Input tensor|
+|Input|T<weight_t>|weight|[OC,IC,KH,KW]|4|Weight kernel size KH x KW|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<i32_t>|pad|[4]|1|[pad_top, pad_bottom, pad_left, pad_right]|
+|Attribute|T<i32_t>|stride|[2]|1|[stride_y, stride_x]|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
+
 ==== RESCALE
 
 Rescale quantized values into a new domain. This function scales by factor: multiplier * 2^-shift^.
+
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|shape|0 to MAX_RANK|Input tensor|
+|Output|T<out_t>|output|shape|0 to MAX_RANK|Output tensor with the same shape as input|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point.| 
+|Attribute|T<out_t>|out_qpoint|-|0|Output tensor q-point.|
+|Attribute|T<mul_t>|multiplier|[NC]|1|Scaling multiplier array|
+|Attribute|T<i8_t>|shift|[NC]|1|Scaling shift array|
+|Attribute|T<bool_t>|scale32|-|0|if (scale32) mul_t=i32_t else mul_t=i16_t|
+|Attribute|T<bool_t>|per_channel|-|0|if (per_channel) NC=shape[rank(shape)-1] else NC=1|
+|Attribute|T<bool_t>|in_unsigned|-|0|If True, treat the input values as unsigned.|
+|Attribute|T<bool_t>|out_unsigned|-|0|If True, treat the output values as unsigned.|
 
 ==== RESHAPE
 
 Returns a tensor with the same type/values as the input, with a new shape specified by the shape argument. Reshape may operate on tensors of any rank. No data conversion happens during a reshape operation.
 
-==== SLICE
-
-Extracts a slice of input1, beginning at the start coordinates, and extending for size elements in each direction.
-No data conversion happens during a slice operation.
-
-==== TILE
-
-Replicates input1 multiples times along each dimension.
+|Argument|Type|Name|Shape|Rank|Description
+|--------|----|----|-----|----|-----------|
+|Input|T<in_out_t>|input1|shape1|1 to MAX_RANK|Input tensor|
+|Input|shape_t<>|shape|-||shape_t giving the new shape.|
+|Output|T<in_out_t>|output|shape|1 to MAX_RANK|Output tensor of same type, size as the input tensor|
 
 ==== TRANSPOSE
 
 Permutes the dimensions of the input tensor input1 based on the perms argument.
 Each value in the perms list must be a valid dimension of the input tensor and may not be repeated.
 
+|Argument|Type|Name|Shape|Rank|Description
+|--------|----|----|-----|----|-----------|
+|Input|T<in_out_t>|input1|shape1|1 to MAX_RANK|Input tensor|
+|Attribute|T<i32_t>|perms|[rank(shape1)]|1|List of integers of length equal to the rank of input1. Values must be valid dimensions within shape1, and may not be repeated.|
+|Output|T<in_out_t>|output|shape|1 to MAX_RANK|Output tensor of same type, rank as the input tensor|
