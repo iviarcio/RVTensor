@@ -130,6 +130,21 @@ Performs 2D convolutions separately over each channel of the given tensor input,
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,C*M,OH,OW]|4|Output tensor|
 
+==== TRANSPOSE_CONV2D
+
+Performs a 2D transposed convolution over the given tensor input, using the weights tensor.
+
+|Argument|Type|Name|Shape|Rank|Description|
+|--------|----|----|-----|----|-----------|
+|Input|T<in_t>|input|[N,IC,IH,IW]|4|Input tensor|
+|Input|T<weight_t>|weight|[OC,IC,KH,KW]|4|Weight kernel size KH x KW|
+|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
+|Attribute|T<i32_t>|pad|[4]|1|[pad_top, pad_bottom, pad_left, pad_right]|
+|Attribute|T<i32_t>|stride|[2]|1|[stride_y, stride_x]|
+|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
+|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
+|Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
+
 ==== FULLY_CONNECTED
 
 Performs a fully connected network.
@@ -152,21 +167,6 @@ Performs a fully connected network.
 |Attribute|T<in_t>|A_qpoint|-|0|Input tensor A q-point. Must be zero for non-quantized types.|
 |Attribute|T<in_t>|B_qpoint|-|0|Input tensor B q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,H,W]|3|Output tensor, N matrices of size HxW|
-
-==== TRANSPOSE_CONV2D
-
-Performs a 2D transposed convolution over the given tensor input, using the weights tensor.
-
-|Argument|Type|Name|Shape|Rank|Description|
-|--------|----|----|-----|----|-----------|
-|Input|T<in_t>|input|[N,IC,IH,IW]|4|Input tensor|
-|Input|T<weight_t>|weight|[OC,IC,KH,KW]|4|Weight kernel size KH x KW|
-|Input|T<out_t>|bias|[BC]|1|Per output channel bias data. Bias data will be broadcast if BC == 1.|
-|Attribute|T<i32_t>|pad|[4]|1|[pad_top, pad_bottom, pad_left, pad_right]|
-|Attribute|T<i32_t>|stride|[2]|1|[stride_y, stride_x]|
-|Attribute|T<in_t>|in_qpoint|-|0|Input tensor q-point. Must be zero for non-quantized types.|
-|Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
-|Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
 
 ==== RESCALE
 
