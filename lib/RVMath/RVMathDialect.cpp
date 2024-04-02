@@ -16,7 +16,7 @@ using namespace mlir::rvmath;
 #include "RVMath/RVMathOpsDialect.cpp.inc"
 
 //===----------------------------------------------------------------------===//
-// RVMath dialect.
+// RVMath dialect initialization.
 //===----------------------------------------------------------------------===//
 
 void RVMathDialect::initialize() {

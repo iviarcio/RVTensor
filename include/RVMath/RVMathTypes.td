@@ -60,9 +60,21 @@ def RVMath_Int32Or64 : AnyTypeOf<[RVMath_Int32,
                    	              RVMath_Int64]>;
 
 //===----------------------------------------------------------------------===//
-// RVMath Quantized Integer Types.
-// Datatype for network feature map or weight content.
+// RVMath Quantized Types.
 //===----------------------------------------------------------------------===//
+
+// Base class of a quantized type.
+// Param tuple is: [bitwidth, qpoint, smantissa, sexp, low_end, high_end].
+// Low and high ends: 0,255 when unsigned, -128,127 when signed
+class RVMath_QuantizedType<string n, list<int> params, bit signed>
+  : Type<And<[CPred<"::llvm::isa<mlir::quant::QuantizedType>($_self)">,
+              CPred<"::llvm::cast<mlir::quant::QuantizedType>($_self)" #
+                    ".getStorageTypeIntegralWidth() == " # !head(params)>]>,
+    "Q" # !if (signed, "int", "uint") # !head(params) # " type"> {
+  string name = n;
+  string asTraitArgsStr = !interleave(params, ", ") #
+                          !if(signed, ", true", ", false");
+}
 
 def RVMath_QuantizedInt	: AnyTypeOf<[RVMath_QuantizedType<"uint8", [8], 0>,
                                      RVMath_QuantizedType<"int8", [8, 0], 1>,

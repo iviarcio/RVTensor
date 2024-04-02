@@ -9,6 +9,8 @@
 #ifndef RVMATH_DIALECT
 #define RVMATH_DIALECT
 
+include "mlir/IR/AttrTypeBase.td"
+include "mlir/IR/BytecodeBase.td"
 include "mlir/IR/OpBase.td"
 
 //===----------------------------------------------------------------------===//
@@ -31,7 +33,24 @@ def RVMath_Dialect : Dialect {
 }
 
 //===----------------------------------------------------------------------===//
-// Base RVMath operation definition.
+// RVMath Attributes.
+//===----------------------------------------------------------------------===//
+
+class RVMath_Attr<string attrName, string attrMnemonic, list<Trait> traits = []>
+    : AttrDef<RVMath_Dialect, attrName, traits> {
+  let mnemonic = attrMnemonic;
+}
+
+//===----------------------------------------------------------------------===//
+// RVMath bytecode reader/writer definition.
+//===----------------------------------------------------------------------===//
+
+def RVMathDialectTypes : DialectTypes<"RVMath"> {
+  let elems = [];
+}
+
+//===----------------------------------------------------------------------===//
+// RVMath dialect op interface.
 //===----------------------------------------------------------------------===//
 
 def RVMathOpInterface : OpInterface<"RVMathOp"> {
@@ -39,6 +58,10 @@ def RVMathOpInterface : OpInterface<"RVMathOp"> {
     Implemented by ops that correspond to the RVMath specification.
   }];
 }
+
+//===----------------------------------------------------------------------===//
+// RVMath Base operation class definition.
+//===----------------------------------------------------------------------===//
 
 class RVMath_Op<string mnemonic, list<Trait> traits = []> :
     Op<RVMath_Dialect, mnemonic, !listconcat(traits, [RVMathOpInterface])> {
@@ -138,6 +161,5 @@ def RVMath_MatMulOpQuantInfoBuilder : OpBuilder<
   [{
     buildMatMulOpWithQuantInfo($_builder, $_state, outputType, a, b);
   }]>;
-
 
 #endif // RVMATH_DIALECT
