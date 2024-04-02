@@ -14,35 +14,6 @@
 #include "RVMath/RVMathPasses.h"
 
 namespace mlir::rvmath {
-#define GEN_PASS_DEF_RVMATHSWITCHBARFOO
 #include "RVMath/RVMathPasses.h.inc"
 
-namespace {
-class RVMathSwitchBarFooRewriter : public OpRewritePattern<func::FuncOp> {
-public:
-  using OpRewritePattern<func::FuncOp>::OpRewritePattern;
-  LogicalResult matchAndRewrite(func::FuncOp op,
-                                PatternRewriter &rewriter) const final {
-    if (op.getSymName() == "bar") {
-      rewriter.modifyOpInPlace(op, [&op]() { op.setSymName("foo"); });
-      return success();
-    }
-    return failure();
-  }
-};
-
-class RVMathSwitchBarFoo
-    : public impl::RVMathSwitchBarFooBase<RVMathSwitchBarFoo> {
-public:
-  using impl::RVMathSwitchBarFooBase<
-      RVMathSwitchBarFoo>::RVMathSwitchBarFooBase;
-  void runOnOperation() final {
-    RewritePatternSet patterns(&getContext());
-    patterns.add<RVMathSwitchBarFooRewriter>(&getContext());
-    FrozenRewritePatternSet patternSet(std::move(patterns));
-    if (failed(applyPatternsAndFoldGreedily(getOperation(), patternSet)))
-      signalPassFailure();
-  }
-};
-} // namespace
 } // namespace mlir::rvmath

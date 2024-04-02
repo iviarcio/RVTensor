@@ -115,7 +115,6 @@ def RVMath_MatMulOpQuantizationAttr
 // This builder is called on all convolution operators except for TransposeConv,
 // which has specialized output shape semantics. The builder also defines the
 // bitwidth of the output given the bit width of the input & weight content.
-
 def RVMath_ConvOpQuantInfoBuilder : OpBuilder<
   (ins "::mlir::Type":$outputType, "::mlir::Value":$input,
        "::mlir::Value":$weight, "::mlir::Value":$bias,
@@ -128,7 +127,6 @@ def RVMath_ConvOpQuantInfoBuilder : OpBuilder<
   }]>;
 
 // Handles rvmath.transpose_conv2d which has an outpad and output shape attribute
-
 def RVMath_TransConvOpQuantInfoBuilder : OpBuilder<
   (ins "::mlir::Type":$outputType, "::mlir::Value":$input,
        "::mlir::Value":$weight, "mlir::Value":$bias,
@@ -144,7 +142,6 @@ def RVMath_TransConvOpQuantInfoBuilder : OpBuilder<
 
 // The rvmath.fully_connected op has its own builder as it does not have
 // strides, dilation, and padding.
-
 def RVMath_FCOpQuantInfoBuilder : OpBuilder<
   (ins "Type":$outputType, "Value":$input, "Value":$weight, "Value":$bias),
   [{
@@ -155,7 +152,6 @@ def RVMath_FCOpQuantInfoBuilder : OpBuilder<
 // The rvmath.matmul op is also intended to be generated where a fully_connected
 // op must be constructed where the weight is not a constant. In this case,
 // the fully_connected op must be expressed using matmul.
-
 def RVMath_MatMulOpQuantInfoBuilder : OpBuilder<
   (ins "Type":$outputType, "Value":$a, "Value":$b),
   [{

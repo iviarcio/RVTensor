@@ -14,22 +14,6 @@ include "mlir/IR/AttrTypeBase.td"
 include "RVMath/RVMathDialect.td"
 
 //===----------------------------------------------------------------------===//
-// RVMath Custom type definition
-//===----------------------------------------------------------------------===//
-
-class RVMath_Type<string name, string typeMnemonic, list<Trait> traits = []>
-    : TypeDef<RVMath_Dialect, name, traits> {
-  let mnemonic = typeMnemonic;
-}
-
-def RVMath_CustomType : RVMath_Type<"Custom", "custom"> {
-    let summary = "RVMath custom type";
-    let description = "Custom type in rvmath dialect";
-    let parameters = (ins StringRefParameter<"the custom value">:$value);
-    let assemblyFormat = "`<` $value `>`";
-}
-
-//===----------------------------------------------------------------------===//
 // RVMath Non-Quantized Signed Integer Types.
 //===----------------------------------------------------------------------===//
 
