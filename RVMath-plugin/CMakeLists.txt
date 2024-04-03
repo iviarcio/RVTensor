@@ -1,18 +1,18 @@
-add_llvm_library(RVMathPlugin
+add_llvm_library(RVTensorPlugin
         # BUILDTREE_ONLY is only for testing purposes
         MODULE BUILDTREE_ONLY
-        rvmath-plugin.cpp
+        rvtensor-plugin.cpp
 
         DEPENDS
-        MLIRRVMath
+        MLIRRVTensor
         PLUGIN_TOOL
         mlir-opt
 
         LINK_LIBS
-        MLIRRVMath
+        MLIRRVTensor
         )
 target_include_directories(
-        RVMathPlugin
+        RVTensorPlugin
         PRIVATE
-        "${RVMATH_BINARY_DIR}/include"
+        "${RVTENSOR_BINARY_DIR}/include"
 )

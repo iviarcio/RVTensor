@@ -6,10 +6,10 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "RVMath-c/Dialects.h"
+#include "RVTensor-c/Dialects.h"
 
-#include "RVMath/RVMathDialect.h"
+#include "RVTensor/RVTensorDialect.h"
 #include "mlir/CAPI/Registration.h"
 
-MLIR_DEFINE_CAPI_DIALECT_REGISTRATION(RVMath, rvmath,
-                                      mlir::rvmath::RVMathDialect)
+MLIR_DEFINE_CAPI_DIALECT_REGISTRATION(RVTensor, rvtensor,
+                                      mlir::rvtensor::RVTensorDialect)

@@ -1,1 +1,1 @@
-add_subdirectory(RVMath)
+add_subdirectory(RVTensor)

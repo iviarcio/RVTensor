@@ -9,23 +9,23 @@ configure_lit_site_cfg(
         ${CMAKE_CURRENT_SOURCE_DIR}/lit.cfg.py
 )
 
-set(RVMATH_TEST_DEPENDS
+set(RVTENSOR_TEST_DEPENDS
         FileCheck count not
-        rvmath-capi-test
-        rvmath-opt
-        rvmath-translate
-        RVMathPlugin
+        rvtensor-capi-test
+        rvtensor-opt
+        rvtensor-translate
+        RVTensorPlugin
         )
 if(MLIR_ENABLE_BINDINGS_PYTHON)
-  list(APPEND RVMATH_TEST_DEPENDS RVMathPythonModules)
+  list(APPEND RVTENSOR_TEST_DEPENDS RVTensorPythonModules)
 endif()
 
-add_lit_testsuite(check-rvmath "Running the rvmath regression tests"
+add_lit_testsuite(check-rvtensor "Running the rvtensor regression tests"
         ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS ${RVMATH_TEST_DEPENDS}
+        DEPENDS ${RVTENSOR_TEST_DEPENDS}
         )
-set_target_properties(check-rvmath PROPERTIES FOLDER "Tests")
+set_target_properties(check-rvtensor PROPERTIES FOLDER "Tests")
 
-add_lit_testsuites(RVMATH ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS ${RVMATH_TEST_DEPENDS})
+add_lit_testsuites(RVTENSOR ${CMAKE_CURRENT_SOURCE_DIR} DEPENDS ${RVTENSOR_TEST_DEPENDS})
 
 add_subdirectory(CAPI)

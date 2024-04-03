@@ -5,11 +5,11 @@ set(LIBS
         ${conversion_libs}
         MLIRArithDialect
         MLIROptLib
-        MLIRRVMath
+        MLIRRVTensor
         )
-add_llvm_executable(rvmath-opt rvmath-opt.cpp)
+add_llvm_executable(rvtensor-opt rvtensor-opt.cpp)
 
-llvm_update_compile_flags(rvmath-opt)
-target_link_libraries(rvmath-opt PRIVATE ${LIBS})
+llvm_update_compile_flags(rvtensor-opt)
+target_link_libraries(rvtensor-opt PRIVATE ${LIBS})
 
-mlir_check_all_link_libraries(rvmath-opt)
+mlir_check_all_link_libraries(rvtensor-opt)

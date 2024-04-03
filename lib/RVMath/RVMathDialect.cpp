@@ -1,4 +1,4 @@
-//===- RVMathDialect.cpp - RVMath dialect ---------------*- C++ -*-===//
+//===- RVTensorDialect.cpp - RVTensor dialect ---------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,23 +6,23 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "RVMath/RVMathDialect.h"
-#include "RVMath/RVMathOps.h"
-#include "RVMath/RVMathTypes.h"
+#include "RVTensor/RVTensorDialect.h"
+#include "RVTensor/RVTensorOps.h"
+#include "RVTensor/RVTensorTypes.h"
 
 using namespace mlir;
-using namespace mlir::rvmath;
+using namespace mlir::rvtensor;
 
-#include "RVMath/RVMathOpsDialect.cpp.inc"
+#include "RVTensor/RVTensorOpsDialect.cpp.inc"
 
 //===----------------------------------------------------------------------===//
-// RVMath dialect initialization.
+// RVTensor dialect initialization.
 //===----------------------------------------------------------------------===//
 
-void RVMathDialect::initialize() {
+void RVTensorDialect::initialize() {
   addOperations<
 #define GET_OP_LIST
-#include "RVMath/RVMathOps.cpp.inc"
+#include "RVTensor/RVTensorOps.cpp.inc"
       >();
   registerTypes();
 }

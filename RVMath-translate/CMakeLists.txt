@@ -5,11 +5,11 @@ set(LLVM_LINK_COMPONENTS
 get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 get_property(translation_libs GLOBAL PROPERTY MLIR_TRANSLATION_LIBS)
 
-add_llvm_executable(rvmath-translate
-  rvmath-translate.cpp
+add_llvm_executable(rvtensor-translate
+  rvtensor-translate.cpp
   )
-llvm_update_compile_flags(rvmath-translate)
-target_link_libraries(rvmath-translate
+llvm_update_compile_flags(rvtensor-translate)
+target_link_libraries(rvtensor-translate
   PRIVATE
   ${dialect_libs}
   ${translation_libs}
@@ -21,4 +21,4 @@ target_link_libraries(rvmath-translate
   MLIRSupport
   )
 
-mlir_check_link_libraries(rvmath-translate)
+mlir_check_link_libraries(rvtensor-translate)

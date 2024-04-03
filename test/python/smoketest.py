@@ -1,16 +1,16 @@
 # RUN: %python %s | FileCheck %s
 
-from mlir_rvmath.ir import *
-from mlir_rvmath.dialects import builtin as builtin_d, rvmath as rvmath_d
+from mlir_rvtensor.ir import *
+from mlir_rvtensor.dialects import builtin as builtin_d, rvtensor as rvtensor_d
 
 with Context():
-    rvmath_d.register_dialect()
+    rvtensor_d.register_dialect()
     module = Module.parse(
         """
     %0 = arith.constant 2 : i32
-    %1 = rvmath.foo %0 : i32
+    %1 = rvtensor.foo %0 : i32
     """
     )
     # CHECK: %[[C:.*]] = arith.constant 2 : i32
-    # CHECK: rvmath.foo %[[C]] : i32
+    # CHECK: rvtensor.foo %[[C]] : i32
     print(str(module))

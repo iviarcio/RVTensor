@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef RVMATH_C_DIALECTS_H
-#define RVMATH_C_DIALECTS_H
+#ifndef RVTENSOR_C_DIALECTS_H
+#define RVTENSOR_C_DIALECTS_H
 
 #include "mlir-c/IR.h"
 
@@ -15,10 +15,10 @@
 extern "C" {
 #endif
 
-MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(RVMath, rvmath);
+MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(RVTensor, rvtensor);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // RVMATH_C_DIALECTS_H
+#endif // RVTENSOR_C_DIALECTS_H

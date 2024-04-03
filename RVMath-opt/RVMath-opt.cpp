@@ -1,4 +1,4 @@
-//===- rvmath-opt.cpp ---------------------------------------*- C++ -*-===//
+//===- rvtensor-opt.cpp ---------------------------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -12,16 +12,16 @@
 #include "mlir/Support/FileUtilities.h"
 #include "mlir/Tools/mlir-opt/MlirOptMain.h"
 
-#include "RVMath/RVMathDialect.h"
-#include "RVMath/RVMathPasses.h"
+#include "RVTensor/RVTensorDialect.h"
+#include "RVTensor/RVTensorPasses.h"
 
 int main(int argc, char **argv) {
   mlir::registerAllPasses();
-  mlir::rvmath::registerPasses();
-  // TODO: Register rvmath passes here.
+  mlir::rvtensor::registerPasses();
+  // TODO: Register rvtensor passes here.
 
   mlir::DialectRegistry registry;
-  registry.insert<mlir::rvmath::RVMathDialect,
+  registry.insert<mlir::rvtensor::RVTensorDialect,
                   mlir::arith::ArithDialect, mlir::func::FuncDialect>();
   // Add the following to include *all* MLIR Core dialects, or selectively
   // include what you need like above. You only need to register dialects that
@@ -29,5 +29,5 @@ int main(int argc, char **argv) {
   // registerAllDialects(registry);
 
   return mlir::asMainReturnCode(
-      mlir::MlirOptMain(argc, argv, "RVMath optimizer driver\n", registry));
+      mlir::MlirOptMain(argc, argv, "RVTensor optimizer driver\n", registry));
 }

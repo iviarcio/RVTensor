@@ -1,15 +1,15 @@
-add_mlir_dialect_library(MLIRRVMath
-        RVMathTypes.cpp
-        RVMathDialect.cpp
-        RVMathOps.cpp
-        RVMathPasses.cpp
+add_mlir_dialect_library(MLIRRVTensor
+        RVTensorTypes.cpp
+        RVTensorDialect.cpp
+        RVTensorOps.cpp
+        RVTensorPasses.cpp
 
         ADDITIONAL_HEADER_DIRS
-        ${PROJECT_SOURCE_DIR}/include/RVMath
+        ${PROJECT_SOURCE_DIR}/include/RVTensor
 
         DEPENDS
-        MLIRRVMathOpsIncGen
-        MLIRRVMathPassesIncGen
+        MLIRRVTensorOpsIncGen
+        MLIRRVTensorPassesIncGen
 
         LINK_LIBS PUBLIC
         MLIRIR

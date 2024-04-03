@@ -1,4 +1,4 @@
-//===- RVMathOps.cpp - RVMath dialect ops ---------------*- C++ -*-===//
+//===- RVTensorOps.cpp - RVTensor dialect ops ---------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "RVMath/RVMathOps.h"
-#include "RVMath/RVMathDialect.h"
+#include "RVTensor/RVTensorOps.h"
+#include "RVTensor/RVTensorDialect.h"
 #include "mlir/IR/OpBase.td"
 #include "mlir/Support/LogicalResult.h"
 
 #define GET_OP_CLASSES
-#include "RVMath/RVMathOps.cpp.inc"
+#include "RVTensor/RVTensorOps.cpp.inc"
 
 using namespace mlir;
-using namespace mlir::rvmath;
+using namespace mlir::rvtensor;
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator Verifiers.
+// RVTensor Operator Verifiers.
 //===----------------------------------------------------------------------===//
 
 static bool hasZeroDimension(ShapedType shapedType) {
@@ -39,7 +39,7 @@ static bool hasZeroDimension(ShapedType shapedType) {
 
 template <typename T> static LogicalResult verifyConvOp(T op) {
 
-  // All RVMath conv ops have an input() and weight().
+  // All RVTensor conv ops have an input() and weight().
   auto inputType = llvm::dyn_cast<RankedTensorType>(op.getInput().getType());
   auto weightType = llvm::dyn_cast<RankedTensorType>(op.getWeight().getType());
 
@@ -93,7 +93,7 @@ LogicalResult DepthwiseConv2DOp::verify() { return verifyConvOp(*this); }
 LogicalResult FullyConnectedOp::verify() { return verifyConvOp(*this); }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator Quantization Builders.
+// RVTensor Operator Quantization Builders.
 //===----------------------------------------------------------------------===//
 
 /// This builder is called on all convolution operators except TransposeConv,
@@ -120,7 +120,7 @@ static void buildConvOpWithQuantInfo(OpBuilder &builder, OperationState &result,
   }
 }
 
-/// Handles rvmath.transpose_conv2d which has outpad and output shape attributes.
+/// Handles rvtensor.transpose_conv2d which has outpad and output shape attributes.
 static void buildTransConvOpWithQuantInfo(
     OpBuilder &builder, OperationState &result, Type outputType, Value input,
     Value weight, Value bias, DenseI64ArrayAttr outpad,
@@ -140,7 +140,7 @@ static void buildTransConvOpWithQuantInfo(
   }
 }
 
-/// The rvmath.fully_connected op has its own builder as it does not have
+/// The rvtensor.fully_connected op has its own builder as it does not have
 /// strides/dilation/padding.
 static void buildFCOpWithQuantInfo(OpBuilder &builder, OperationState &result,
                                    Type outputType, Value input, Value weight,
@@ -157,7 +157,7 @@ static void buildFCOpWithQuantInfo(OpBuilder &builder, OperationState &result,
   }
 }
 
-/// The rvmath.matmul op is also intended to be generated where a fully_connected
+/// The rvtensor.matmul op is also intended to be generated where a fully_connected
 /// op must be constructed where the weight is not a constant. In this case,
 /// the fully_connected op must be expressed using matmul.
 static void buildMatMulOpWithQuantInfo(OpBuilder &builder,
@@ -194,7 +194,7 @@ static void buildMatMulOpWithQuantInfo(OpBuilder &builder,
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Infer Return Type Components.
+// RVTensor Infer Return Type Components.
 //===----------------------------------------------------------------------===//
 
 LogicalResult Conv2DOp::inferReturnTypeComponents(
@@ -332,7 +332,7 @@ LogicalResult DepthwiseConv2DOp::inferReturnTypeComponents(
 
 } //DepthwiseConv2DOp
 
-LogicalResult rvmath::FullyConnectedOp::inferReturnTypeComponents(
+LogicalResult rvtensor::FullyConnectedOp::inferReturnTypeComponents(
     MLIRContext *context, ::std::optional<Location> location,
     FullyConnectedOp::Adaptor adaptor,
     SmallVectorImpl<ShapedTypeComponents> &inferredReturnShapes) {
@@ -362,7 +362,7 @@ LogicalResult rvmath::FullyConnectedOp::inferReturnTypeComponents(
 
 } // FullyConnectedOp
 
-LogicalResult rvmath::MatMulOp::inferReturnTypeComponents(
+LogicalResult rvtensor::MatMulOp::inferReturnTypeComponents(
     MLIRContext *context, ::std::optional<Location> location,
     MatMulOp::Adaptor adaptor,
     SmallVectorImpl<ShapedTypeComponents> &inferredReturnShapes) {

@@ -1,45 +1,45 @@
 include(AddMLIRPython)
 
-# Specifies that all MLIR packages are co-located under the `mlir_rvmath`
+# Specifies that all MLIR packages are co-located under the `mlir_rvtensor`
 # top level package (the API has been embedded in a relocatable way).
 # TODO: Add an upstream cmake param for this vs having a global here.
-add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=mlir_rvmath.")
+add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=mlir_rvtensor.")
 
 
 ################################################################################
 # Sources
 ################################################################################
 
-declare_mlir_python_sources(RVMathPythonSources)
+declare_mlir_python_sources(RVTensorPythonSources)
 
 declare_mlir_dialect_python_bindings(
-  ADD_TO_PARENT RVMathPythonSources
-  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_rvmath"
-  TD_FILE dialects/RVMathOps.td
+  ADD_TO_PARENT RVTensorPythonSources
+  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_rvtensor"
+  TD_FILE dialects/RVTensorOps.td
   SOURCES
-    dialects/rvmath.py
-  DIALECT_NAME rvmath)
+    dialects/rvtensor.py
+  DIALECT_NAME rvtensor)
 
-declare_mlir_python_extension(RVMathPythonSources.Extension
-  MODULE_NAME _rvmathDialects
-  ADD_TO_PARENT RVMathPythonSources
+declare_mlir_python_extension(RVTensorPythonSources.Extension
+  MODULE_NAME _rvtensorDialects
+  ADD_TO_PARENT RVTensorPythonSources
   SOURCES
-    RVMathExtension.cpp
+    RVTensorExtension.cpp
   EMBED_CAPI_LINK_LIBS
-    RVMathCAPI
+    RVTensorCAPI
 )
 
 ################################################################################
 # Common CAPI
 ################################################################################
 
-add_mlir_python_common_capi_library(RVMathPythonCAPI
-  INSTALL_COMPONENT RVMathPythonModules
-  INSTALL_DESTINATION python_packages/rvmath/mlir_rvmath/_mlir_libs
-  OUTPUT_DIRECTORY "${MLIR_BINARY_DIR}/python_packages/rvmath/mlir_rvmath/_mlir_libs"
+add_mlir_python_common_capi_library(RVTensorPythonCAPI
+  INSTALL_COMPONENT RVTensorPythonModules
+  INSTALL_DESTINATION python_packages/rvtensor/mlir_rvtensor/_mlir_libs
+  OUTPUT_DIRECTORY "${MLIR_BINARY_DIR}/python_packages/rvtensor/mlir_rvtensor/_mlir_libs"
   RELATIVE_INSTALL_ROOT "../../../.."
   DECLARED_SOURCES
-    RVMathPythonSources
+    RVTensorPythonSources
     # TODO: Remove this in favor of showing fine grained registration once
     # available.
     MLIRPythonExtension.RegisterEverything
@@ -50,15 +50,15 @@ add_mlir_python_common_capi_library(RVMathPythonCAPI
 # Instantiation of all Python modules
 ################################################################################
 
-add_mlir_python_modules(RVMathPythonModules
-  ROOT_PREFIX "${MLIR_BINARY_DIR}/python_packages/rvmath/mlir_rvmath"
-  INSTALL_PREFIX "python_packages/rvmath/mlir_rvmath"
+add_mlir_python_modules(RVTensorPythonModules
+  ROOT_PREFIX "${MLIR_BINARY_DIR}/python_packages/rvtensor/mlir_rvtensor"
+  INSTALL_PREFIX "python_packages/rvtensor/mlir_rvtensor"
   DECLARED_SOURCES
-    RVMathPythonSources
+    RVTensorPythonSources
     # TODO: Remove this in favor of showing fine grained registration once
     # available.
     MLIRPythonExtension.RegisterEverything
     MLIRPythonSources
   COMMON_CAPI_LINK_LIBS
-    RVMathPythonCAPI
+    RVTensorPythonCAPI
   )

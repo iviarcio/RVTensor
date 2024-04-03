@@ -1,4 +1,4 @@
-//===- rvmath-plugin.cpp ------------------------------------*- C++ -*-===//
+//===- rvtensor-plugin.cpp ------------------------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -10,8 +10,8 @@
 #include "mlir/InitAllDialects.h"
 #include "mlir/Tools/Plugins/DialectPlugin.h"
 
-#include "RVMath/RVMathDialect.h"
-#include "RVMath/RVMathPasses.h"
+#include "RVTensor/RVTensorDialect.h"
+#include "RVTensor/RVTensorPasses.h"
 #include "mlir/Tools/Plugins/PassPlugin.h"
 #include "llvm/Config/llvm-config.h"
 #include "llvm/Support/Compiler.h"
@@ -23,16 +23,16 @@ using namespace mlir;
 /// Necessary symbol to register the dialect plugin.
 extern "C" LLVM_ATTRIBUTE_WEAK DialectPluginLibraryInfo
 mlirGetDialectPluginInfo() {
-  return {MLIR_PLUGIN_API_VERSION, "RVMath", LLVM_VERSION_STRING,
+  return {MLIR_PLUGIN_API_VERSION, "RVTensor", LLVM_VERSION_STRING,
           [](DialectRegistry *registry) {
-            registry->insert<mlir::rvmath::RVMathDialect>();
-            mlir::rvmath::registerPasses();
+            registry->insert<mlir::rvtensor::RVTensorDialect>();
+            mlir::rvtensor::registerPasses();
           }};
 }
 
 /// Pass plugin registration mechanism.
 /// Necessary symbol to register the pass plugin.
 extern "C" LLVM_ATTRIBUTE_WEAK PassPluginLibraryInfo mlirGetPassPluginInfo() {
-  return {MLIR_PLUGIN_API_VERSION, "RVMathPasses", LLVM_VERSION_STRING,
-          []() { mlir::rvmath::registerPasses(); }};
+  return {MLIR_PLUGIN_API_VERSION, "RVTensorPasses", LLVM_VERSION_STRING,
+          []() { mlir::rvtensor::registerPasses(); }};
 }

@@ -1,4 +1,4 @@
-//===- RVMathTypes.cpp - RVMath dialect types -----------*- C++ -*-===//
+//===- RVTensorTypes.cpp - RVTensor dialect types -----------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,21 +6,21 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "RVMath/RVMathTypes.h"
+#include "RVTensor/RVTensorTypes.h"
 
-#include "RVMath/RVMathDialect.h"
+#include "RVTensor/RVTensorDialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/DialectImplementation.h"
 #include "llvm/ADT/TypeSwitch.h"
 
-using namespace mlir::rvmath;
+using namespace mlir::rvtensor;
 
 #define GET_TYPEDEF_CLASSES
-#include "RVMath/RVMathOpsTypes.cpp.inc"
+#include "RVTensor/RVTensorOpsTypes.cpp.inc"
 
-void RVMathDialect::registerTypes() {
+void RVTensorDialect::registerTypes() {
   addTypes<
 #define GET_TYPEDEF_LIST
-#include "RVMath/RVMathOpsTypes.cpp.inc"
+#include "RVTensor/RVTensorOpsTypes.cpp.inc"
       >();
 }

@@ -1,4 +1,4 @@
-//===-- RVMathOps.td - Python bindings for rvmath --*- tablegen -*-===//
+//===-- RVTensorOps.td - Python bindings for rvtensor --*- tablegen -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,9 +6,9 @@
 //
 //===---------------------------------------------------------------------===//
 
-#ifndef PYTHON_BINDINGS_RVMATH_OPS
-#define PYTHON_BINDINGS_RVMATH_OPS
+#ifndef PYTHON_BINDINGS_RVTENSOR_OPS
+#define PYTHON_BINDINGS_RVTENSOR_OPS
 
-include "RVMath/RVMathOps.td"
+include "RVTensor/RVTensorOps.td"
 
 #endif

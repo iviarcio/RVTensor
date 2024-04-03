@@ -1,2 +1,2 @@
 add_subdirectory(CAPI)
-add_subdirectory(RVMath)
+add_subdirectory(RVTensor)

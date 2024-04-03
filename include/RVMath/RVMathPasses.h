@@ -1,26 +1,26 @@
-//===- RVMathPasses.h - RVMath passes  ------------------*- C++ -*-===//
+//===- RVTensorPasses.h - RVTensor passes  ------------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 //
 //===----------------------------------------------------------------------===//
-#ifndef RVMATH_RVMATHPASSES_H
-#define RVMATH_RVMATHPASSES_H
+#ifndef RVTENSOR_RVTENSORPASSES_H
+#define RVTENSOR_RVTENSORPASSES_H
 
-#include "RVMath/RVMathDialect.h"
-#include "RVMath/RVMathOps.h"
+#include "RVTensor/RVTensorDialect.h"
+#include "RVTensor/RVTensorOps.h"
 #include "mlir/Pass/Pass.h"
 #include <memory>
 
 namespace mlir {
-namespace rvmath {
+namespace rvtensor {
 #define GEN_PASS_DECL
-#include "RVMath/RVMathPasses.h.inc"
+#include "RVTensor/RVTensorPasses.h.inc"
 
 #define GEN_PASS_REGISTRATION
-#include "RVMath/RVMathPasses.h.inc"
-} // namespace rvmath
+#include "RVTensor/RVTensorPasses.h.inc"
+} // namespace rvtensor
 } // namespace mlir
 
 #endif

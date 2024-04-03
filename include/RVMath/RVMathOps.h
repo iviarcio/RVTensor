@@ -1,4 +1,4 @@
-//===- RVMathOps.h - RVMath dialect ops -----------------*- C++ -*-===//
+//===- RVTensorOps.h - RVTensor dialect ops -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef RVMATH_RVMATHOPS_H
-#define RVMATH_RVMATHOPS_H
+#ifndef RVTENSOR_RVTENSOROPS_H
+#define RVTENSOR_RVTENSOROPS_H
 
 #include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/Dialect.h"
@@ -16,6 +16,6 @@
 #include "mlir/Interfaces/SideEffectInterfaces.h"
 
 #define GET_OP_CLASSES
-#include "RVMath/RVMathOps.h.inc"
+#include "RVTensor/RVTensorOps.h.inc"
 
-#endif // RVMATH_RVMATHOPS_H
+#endif // RVTENSOR_RVTENSOROPS_H

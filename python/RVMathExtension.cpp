@@ -1,4 +1,4 @@
-//===- RVMathExtension.cpp - Extension module -------------------------===//
+//===- RVTensorExtension.cpp - Extension module -------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,21 +6,21 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "RVMath-c/Dialects.h"
+#include "RVTensor-c/Dialects.h"
 #include "mlir/Bindings/Python/PybindAdaptors.h"
 
 using namespace mlir::python::adaptors;
 
-PYBIND11_MODULE(_RVMathDialects, m) {
+PYBIND11_MODULE(_RVTensorDialects, m) {
   //===--------------------------------------------------------------------===//
-  // rvmath dialect
+  // rvtensor dialect
   //===--------------------------------------------------------------------===//
-  auto rvmathM = m.def_submodule("rvmath");
+  auto rvtensorM = m.def_submodule("rvtensor");
 
-  rvmathM.def(
+  rvtensorM.def(
       "register_dialect",
       [](MlirContext context, bool load) {
-        MlirDialectHandle handle = mlirGetDialectHandle__rvmath__();
+        MlirDialectHandle handle = mlirGetDialectHandle__rvtensor__();
         mlirDialectHandleRegisterDialect(handle, context);
         if (load) {
           mlirDialectHandleLoadDialect(handle, context);

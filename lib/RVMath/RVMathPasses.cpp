@@ -1,4 +1,4 @@
-//===- RVMathPasses.cpp - RVMath passes -----------------*- C++ -*-===//
+//===- RVTensorPasses.cpp - RVTensor passes -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -11,9 +11,9 @@
 #include "mlir/Support/LogicalResult.h"
 #include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
-#include "RVMath/RVMathPasses.h"
+#include "RVTensor/RVTensorPasses.h"
 
-namespace mlir::rvmath {
-#include "RVMath/RVMathPasses.h.inc"
+namespace mlir::rvtensor {
+#include "RVTensor/RVTensorPasses.h.inc"
 
-} // namespace mlir::rvmath
+} // namespace mlir::rvtensor

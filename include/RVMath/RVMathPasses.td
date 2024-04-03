@@ -1,4 +1,4 @@
-//===- RVMathPasses.td - RVMath dialect passes -------*- tablegen -*-===//
+//===- RVTensorPasses.td - RVTensor dialect passes -------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,9 +6,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef RVMATH_PASS
-#define RVMATH_PASS
+#ifndef RVTENSOR_PASS
+#define RVTENSOR_PASS
 
 include "mlir/Pass/PassBase.td"
 
-#endif // RVMATH_PASS
+#endif // RVTENSOR_PASS

@@ -1,4 +1,4 @@
-//===- RVMathOps.td - RVMath dialect ops -----------*- tablegen -*-===//
+//===- RVTensorOps.td - RVTensor dialect ops -----------*- tablegen -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef RVMATH_OPS
-#define RVMATH_OPS
+#ifndef RVTENSOR_OPS
+#define RVTENSOR_OPS
 
-include "RVMath/RVMathTypes.td"
-include "RVMath/RVMathDialect.td"
+include "RVTensor/RVTensorTypes.td"
+include "RVTensor/RVTensorDialect.td"
 include "mlir/Interfaces/InferTypeOpInterface.td"
 include "mlir/Interfaces/SideEffectInterfaces.td"
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: conv2d
+// RVTensor Operator: conv2d
 //===----------------------------------------------------------------------===//
 
-def RVMath_Conv2DOp : RVMath_InferShapedTypeOp<"conv2d"> {
+def RVTensor_Conv2DOp : RVTensor_InferShapedTypeOp<"conv2d"> {
   let summary = "2D Convolution Operator";
 
   let description = [{
@@ -27,27 +27,27 @@ def RVMath_Conv2DOp : RVMath_InferShapedTypeOp<"conv2d"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor4D:$input,
-    4DTensorOf<[RVMath_Weight]>:$weight,
-    RVMath_Tensor1D:$bias,
-    RVMath_IntArrayAttr4:$pad,
-    RVMath_IntArrayAttr2:$stride,
-    RVMath_IntArrayAttr2:$dilation,
-    OptionalAttr<RVMath_ConvOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor4D:$input,
+    4DTensorOf<[RVTensor_Weight]>:$weight,
+    RVTensor_Tensor1D:$bias,
+    RVTensor_IntArrayAttr4:$pad,
+    RVTensor_IntArrayAttr2:$stride,
+    RVTensor_IntArrayAttr2:$dilation,
+    OptionalAttr<RVTensor_ConvOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor4D:$output
+    RVTensor_Tensor4D:$output
   );
 
-  let builders = [RVMath_ConvOpQuantInfoBuilder];
+  let builders = [RVTensor_ConvOpQuantInfoBuilder];
   let hasVerifier = 1;
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: conv3d
+// RVTensor Operator: conv3d
 //===----------------------------------------------------------------------===//
-def RVMath_Conv3DOp : RVMath_InferShapedTypeOp<"conv3d"> {
+def RVTensor_Conv3DOp : RVTensor_InferShapedTypeOp<"conv3d"> {
   let summary = "3D Convolution operator";
 
   let description = [{
@@ -55,27 +55,27 @@ def RVMath_Conv3DOp : RVMath_InferShapedTypeOp<"conv3d"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor5D:$input,
-    TensorRankOf<[RVMath_Weight], [5]>:$weight,
-    RVMath_Tensor1D:$bias,
-    RVMath_IntArrayAttr6:$pad,
-    RVMath_IntArrayAttr3:$stride,
-    RVMath_IntArrayAttr3:$dilation,
-    OptionalAttr<RVMath_ConvOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor5D:$input,
+    TensorRankOf<[RVTensor_Weight], [5]>:$weight,
+    RVTensor_Tensor1D:$bias,
+    RVTensor_IntArrayAttr6:$pad,
+    RVTensor_IntArrayAttr3:$stride,
+    RVTensor_IntArrayAttr3:$dilation,
+    OptionalAttr<RVTensor_ConvOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor5D:$output
+    RVTensor_Tensor5D:$output
   );
 
-  let builders = [RVMath_ConvOpQuantInfoBuilder];
+  let builders = [RVTensor_ConvOpQuantInfoBuilder];
   let hasVerifier = 1;
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: depthwise_conv2d
+// RVTensor Operator: depthwise_conv2d
 //===----------------------------------------------------------------------===//
-def RVMath_DepthwiseConv2DOp : RVMath_InferShapedTypeOp<"depthwise_conv2d"> {
+def RVTensor_DepthwiseConv2DOp : RVTensor_InferShapedTypeOp<"depthwise_conv2d"> {
   let summary = "Depthwise 2D Convolution operator";
 
   let description = [{
@@ -84,28 +84,28 @@ def RVMath_DepthwiseConv2DOp : RVMath_InferShapedTypeOp<"depthwise_conv2d"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor4D:$input,
-    4DTensorOf<[RVMath_Weight]>:$weight,
-    RVMath_Tensor1D:$bias,
-    RVMath_IntArrayAttr4:$pad,
-    RVMath_IntArrayAttr2:$stride,
-    RVMath_IntArrayAttr2:$dilation,
-    OptionalAttr<RVMath_ConvOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor4D:$input,
+    4DTensorOf<[RVTensor_Weight]>:$weight,
+    RVTensor_Tensor1D:$bias,
+    RVTensor_IntArrayAttr4:$pad,
+    RVTensor_IntArrayAttr2:$stride,
+    RVTensor_IntArrayAttr2:$dilation,
+    OptionalAttr<RVTensor_ConvOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor4D:$output
+    RVTensor_Tensor4D:$output
   );
 
-  let builders = [RVMath_ConvOpQuantInfoBuilder];
+  let builders = [RVTensor_ConvOpQuantInfoBuilder];
   let hasVerifier = 1;
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: transpose_conv2d
+// RVTensor Operator: transpose_conv2d
 //===----------------------------------------------------------------------===//
 
-def RVMath_TransposeConv2DOp : RVMath_InferShapedTypeOp<"transpose_conv2d"> {
+def RVTensor_TransposeConv2DOp : RVTensor_InferShapedTypeOp<"transpose_conv2d"> {
   let summary = "Transpose 2D Convolution operator.";
 
   let description = [{
@@ -114,26 +114,26 @@ def RVMath_TransposeConv2DOp : RVMath_InferShapedTypeOp<"transpose_conv2d"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor4D:$input,
-    4DTensorOf<[RVMath_Weight]>:$filter,
-    RVMath_Tensor1D:$bias,
-    RVMath_IntArrayAttr4:$out_pad,
-    RVMath_IntArrayAttr2:$stride,
-    RVMath_IntArrayAttrUpto4:$out_shape,
-    OptionalAttr<RVMath_ConvOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor4D:$input,
+    4DTensorOf<[RVTensor_Weight]>:$filter,
+    RVTensor_Tensor1D:$bias,
+    RVTensor_IntArrayAttr4:$out_pad,
+    RVTensor_IntArrayAttr2:$stride,
+    RVTensor_IntArrayAttrUpto4:$out_shape,
+    OptionalAttr<RVTensor_ConvOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor4D:$output
+    RVTensor_Tensor4D:$output
   );
 
-  let builders = [RVMath_TransConvOpQuantInfoBuilder];
+  let builders = [RVTensor_TransConvOpQuantInfoBuilder];
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: fully_connected
+// RVTensor Operator: fully_connected
 //===----------------------------------------------------------------------===//
-def RVMath_FullyConnectedOp : RVMath_InferShapedTypeOp<"fully_connected"> {
+def RVTensor_FullyConnectedOp : RVTensor_InferShapedTypeOp<"fully_connected"> {
   let summary = "Fully Connected operator";
 
   let description = [{
@@ -141,24 +141,24 @@ def RVMath_FullyConnectedOp : RVMath_InferShapedTypeOp<"fully_connected"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor2D:$input,
-    2DTensorOf<[RVMath_Weight]>:$weight,
-    RVMath_Tensor1D:$bias,
-    OptionalAttr<RVMath_ConvOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor2D:$input,
+    2DTensorOf<[RVTensor_Weight]>:$weight,
+    RVTensor_Tensor1D:$bias,
+    OptionalAttr<RVTensor_ConvOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor2D:$output
+    RVTensor_Tensor2D:$output
   );
 
-  let builders = [RVMath_FCOpQuantInfoBuilder];
+  let builders = [RVTensor_FCOpQuantInfoBuilder];
   let hasVerifier = 1;
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: matmul
+// RVTensor Operator: matmul
 //===----------------------------------------------------------------------===//
-def RVMath_MatMulOp : RVMath_InferShapedTypeOp<"matmul"> {
+def RVTensor_MatMulOp : RVTensor_InferShapedTypeOp<"matmul"> {
   let summary = "Matrix multiplication with bias";
 
   let description = [{
@@ -168,26 +168,26 @@ def RVMath_MatMulOp : RVMath_InferShapedTypeOp<"matmul"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor3D:$a,
-    RVMath_Tensor3D:$b,
-    OptionalAttr<RVMath_MatMulOpQuantizationAttr>:$quantization_info
+    RVTensor_Tensor3D:$a,
+    RVTensor_Tensor3D:$b,
+    OptionalAttr<RVTensor_MatMulOpQuantizationAttr>:$quantization_info
   );
 
   let results = (outs
-    RVMath_Tensor3D:$c
+    RVTensor_Tensor3D:$c
   );
 
-  let builders = [RVMath_MatMulOpQuantInfoBuilder];
+  let builders = [RVTensor_MatMulOpQuantInfoBuilder];
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: rescale
+// RVTensor Operator: rescale
 //===----------------------------------------------------------------------===//
 
-def RVMath_RescaleOp: RVMath_Op<"rescale", [Pure,
+def RVTensor_RescaleOp: RVTensor_Op<"rescale", [Pure,
       DeclareOpInterfaceMethods<InferShapedTypeOpInterface,
                               ["inferReturnTypeComponents"]>]> {
-  let summary = "RVMath rescale operator";
+  let summary = "RVTensor rescale operator";
 
   let description = [{
     Rescale quantized values into a new domain. Supported rescalings are:
@@ -206,7 +206,7 @@ def RVMath_RescaleOp: RVMath_Op<"rescale", [Pure,
   }];
 
   let arguments = (ins
-    RVMath_Tensor:$input,
+    RVTensor_Tensor:$input,
     I32Attr:$in_qpoint,
     I32Attr:$out_qpoint,
     DenseI32ArrayAttr:$multiplier,
@@ -216,16 +216,16 @@ def RVMath_RescaleOp: RVMath_Op<"rescale", [Pure,
   );
 
   let results = (outs
-    RVMath_Tensor:$output
+    RVTensor_Tensor:$output
   );
 
   let assemblyFormat = "operands attr-dict `:` functional-type(operands, results)";
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: reshape
+// RVTensor Operator: reshape
 //===----------------------------------------------------------------------===//
-def RVMath_ReshapeOp : RVMath_InferTensorTypeOp<"reshape"> {
+def RVTensor_ReshapeOp : RVTensor_InferTensorTypeOp<"reshape"> {
   let summary = "Reshape operator";
 
   let description = [{
@@ -238,12 +238,12 @@ def RVMath_ReshapeOp : RVMath_InferTensorTypeOp<"reshape"> {
   let hasVerifier = 1;
 
   let arguments = (ins
-    RVMath_Tensor:$input1,
+    RVTensor_Tensor:$input1,
     DenseI64ArrayAttr:$new_shape
   );
 
   let results = (outs
-    RVMath_RankedTensor:$output
+    RVTensor_RankedTensor:$output
   );
 
   let extraClassDeclaration = [{
@@ -256,9 +256,9 @@ def RVMath_ReshapeOp : RVMath_InferTensorTypeOp<"reshape"> {
 }
 
 //===----------------------------------------------------------------------===//
-// RVMath Operator: transpose
+// RVTensor Operator: transpose
 //===----------------------------------------------------------------------===//
-def RVMath_TransposeOp : RVMath_InferShapedTypeOp<"transpose"> {
+def RVTensor_TransposeOp : RVTensor_InferShapedTypeOp<"transpose"> {
   let summary = "Transpose operator";
 
   let description = [{
@@ -266,12 +266,12 @@ def RVMath_TransposeOp : RVMath_InferShapedTypeOp<"transpose"> {
   }];
 
   let arguments = (ins
-    RVMath_Tensor:$input1,
-    RVMath_Int32Or64Tensor:$perms
+    RVTensor_Tensor:$input1,
+    RVTensor_Int32Or64Tensor:$perms
   );
 
   let results = (
-    outs RVMath_Tensor:$output
+    outs RVTensor_Tensor:$output
   );
 
   let extraClassDeclaration = [{
@@ -283,4 +283,4 @@ def RVMath_TransposeOp : RVMath_InferShapedTypeOp<"transpose"> {
   let hasVerifier = 1;
 }
 
-#endif // RVMATH_OPS
+#endif // RVTENSOR_OPS

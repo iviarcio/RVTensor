@@ -1,4 +1,4 @@
-//===- RVMathDialect.h - RVMath dialect -----------------*- C++ -*-===//
+//===- RVTensorDialect.h - RVTensor dialect -----------------*- C++ -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,12 +6,12 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef RVMATH_RVMATHDIALECT_H
-#define RVMATH_RVMATHDIALECT_H
+#ifndef RVTENSOR_RVTENSORDIALECT_H
+#define RVTENSOR_RVTENSORDIALECT_H
 
 #include "mlir/Bytecode/BytecodeOpInterface.h"
 #include "mlir/IR/Dialect.h"
 
-#include "RVMath/RVMathOpsDialect.h.inc"
+#include "RVTensor/RVTensorOpsDialect.h.inc"
 
-#endif // RVMATH_RVMATHDIALECT_H
+#endif // RVTENSOR_RVTENSORDIALECT_H

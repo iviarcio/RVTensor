@@ -1,13 +1,13 @@
-# A RVMath MLIR dialect
+# A RVTensor MLIR dialect
 
-This is an out-of-tree [MLIR](https://mlir.llvm.org/) RVMath dialect.
+This is an out-of-tree [MLIR](https://mlir.llvm.org/) RVTensor dialect.
 
-The RISC-V Mathematics dialect, abbreviated as RVMath, introduces a suite of whole-tensor operations frequently utilized in Deep Neural
-Networks (DNNs), such as convolutions and matrix multiplications. The primary goal of RVMath is to facilitate the conversion of these
+The RISC-V Tensor dialect, abbreviated as RVTensor, introduces a suite of whole-tensor operations frequently utilized in Deep Neural
+Networks (DNNs), such as convolutions and matrix multiplications. The primary goal of RVTensor is to facilitate the conversion of these
 high-level operations into vendor-specific RISC-V intrinsic operations, leveraging the capabilities of the vector and/or matrix Instruction
 Set Architecture (ISA). This ensures that operators from popular Machine Learning (ML) frameworks like TensorFlow and PyTorch can be
-efficiently represented within RVMath. Additionally, it is anticipated that tools will be developed to seamlessly translate operations from
-ML frameworks into RVMath, enhancing interoperability and optimization for RISC-V based implementations.
+efficiently represented within RVTensor. Additionally, it is anticipated that tools will be developed to seamlessly translate operations from
+ML frameworks into RVTensor, enhancing interoperability and optimization for RISC-V based implementations.
 
 ## Building - Component Build
 
@@ -15,7 +15,7 @@ This setup assumes that you have built LLVM and MLIR in `$BUILD_DIR` and install
 ```sh
 mkdir build && cd build
 cmake -G Ninja .. -DMLIR_DIR=$PREFIX/lib/cmake/mlir -DLLVM_EXTERNAL_LIT=$BUILD_DIR/bin/llvm-lit
-cmake --build . --target check-rvmath
+cmake --build . --target check-rvtensor
 ```
 To build the documentation from the TableGen description of the dialect operations, run
 ```sh
@@ -34,7 +34,7 @@ cmake -G Ninja `$LLVM_SRC_DIR/llvm` \
     -DCMAKE_BUILD_TYPE=Release \
     -DLLVM_TARGETS_TO_BUILD=host \
     -DLLVM_ENABLE_PROJECTS=mlir \
-    -DLLVM_EXTERNAL_PROJECTS=rvmath-dialect -DLLVM_EXTERNAL_RVMATH_DIALECT_SOURCE_DIR=../
-cmake --build . --target check-rvmath
+    -DLLVM_EXTERNAL_PROJECTS=rvtensor-dialect -DLLVM_EXTERNAL_RVTENSOR_DIALECT_SOURCE_DIR=../
+cmake --build . --target check-rvtensor
 ```
 Here, `$LLVM_SRC_DIR` needs to point to the root of the monorepo.

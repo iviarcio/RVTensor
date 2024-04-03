@@ -1,14 +1,14 @@
-== RVMath Specification
+== RVTensor Specification
 
-The RISC-V Mathematics dialect (RVMath) defines a set of primitive operators to which higher level operators can be lowered in a consistent
-way. To remain effective and efficient to implement, the set of operators must be constrained to a reasonably small set of primitive
-operations out of which others can be constructed.
+The RISC-V Tensor dialect (RVTensor) defines a set of primitive operators to which higher level tensor operators can be lowered in a consistent
+way. To remain effective and efficient to implement, the set of temsor operators must be constrained to a reasonably small set of primitive
+tensor operations out of which others can be constructed.
 
 === Goals
 
-The goals of RVMath include the following:
+The goals of RVTensor include the following:
 
-* A minimal and stable set of tensor-level operators to which machine learning framework operators can be reduced.
+* A minimal and stable set of tensor-level operators to which machine learning framework tensor operators can be reduced.
 
 * Full support for both quantized integer and floating-point content.
 
@@ -19,7 +19,7 @@ scaling, and range as required by quantized datatypes.
 
 === Status
 
-The RVMath specification is a work in progress.
+The RVTensor specification is a work in progress.
 
 === Tensor Definitions
 
@@ -42,7 +42,7 @@ of each element in bytes (assumed to be 1 for elements smaller than 8 bits), can
 of a tensor in any dimension to (1 << MAX_LOG2_SIZE) - 1, and thus the highest possible index to (1 << MAX_LOG2_SIZE) - 2. All tensor
 indices must be non-negative.
 
-- **Data Layouts**: The following data layouts are supported in RVMath.
+- **Data Layouts**: The following data layouts are supported in RVTensor.
 
 |Name|Description of dimensions|Usage|
 |----|-------------------------|-----|
@@ -55,14 +55,14 @@ indices must be non-negative.
 === Quantization
 
 In Machine Learning frameworks, tensors can be implemented in a quantized format, where integer values are used to approximate the original
-floating-point numbers. Unlike some operations that might automatically adjust scales to accommodate quantized values, RVMath's integer
+floating-point numbers. Unlike some operations that might automatically adjust scales to accommodate quantized values, RVTensor's integer
 operations require explicit handling. Quantization points, or q-point values, must be explicitly provided to each operator, ensuring
 accurate processing in line with each operator's specific requirements.
 
-To transition a network with quantized tensors to RVMath, it's necessary to employ explicit RESCALE operators wherever there's a change in
-quantization scale. This approach simplifies quantized operations to integer-only computations. The RESCALE operation in RVMath is crucial
+To transition a network with quantized tensors to RVTensor, it's necessary to employ explicit RESCALE operators wherever there's a change in
+quantization scale. This approach simplifies quantized operations to integer-only computations. The RESCALE operation in RVTensor is crucial
 for adjusting values across different precisions. Defined through a combination of integer multiplication, addition, and bit shifting, this
-operator allows for precise scaling adjustments. RVMath accommodates two multiplier precisions: 16-bit and 32-bit, ensuring calculations
+operator allows for precise scaling adjustments. RVTensor accommodates two multiplier precisions: 16-bit and 32-bit, ensuring calculations
 stay within the bounds of a 64-bit accumulator and that the end result remains within a 32-bit range. This design choice prevents overflow
 and ensures the final outcome is accurately represented within the system's computational limits.
 
@@ -75,12 +75,12 @@ tensor values, respectively. If scaling on a per-channel basis is required, then
 utilized.
 
 When operations involve two quantized tensors, they must represent the same numerical range for the results to be considered valid. In such
-scenarios, RVMath anticipates the use of RESCALE operators as needed to align 32-bit integer values within a common range. There is a
-variety of valid choices for scale factors and the selection of a common range. RVMath does not prescribe specific scale factors and ranges
-that must be used. Compilers generating RVMath sequences are encouraged to select a range that prevents overflow and maximizes the accuracy
+scenarios, RVTensor anticipates the use of RESCALE operators as needed to align 32-bit integer values within a common range. There is a
+variety of valid choices for scale factors and the selection of a common range. RVTensor does not prescribe specific scale factors and ranges
+that must be used. Compilers generating RVTensor sequences are encouraged to select a range that prevents overflow and maximizes the accuracy
 of the output.
 
-=== RVMath Operators
+=== RVTensor Operators
 
 ==== CONV2D
 
