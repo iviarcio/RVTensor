@@ -9,9 +9,7 @@
 #ifndef RVTENSOR_TYPES
 #define RVTENSOR_TYPES
 
-include "mlir/IR/OpBase.td"
-include "mlir/IR/AttrTypeBase.td"
-include "RVTensor/RVTensorDialect.td"
+include "mlir/IR/CommonTypeConstraints.td"
 
 //===----------------------------------------------------------------------===//
 // RVTensor Non-Quantized Signed Integer Types.

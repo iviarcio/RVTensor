@@ -9,8 +9,9 @@
 #ifndef RVTENSOR_DIALECT
 #define RVTENSOR_DIALECT
 
+include "mlir/IR/DialectBase.td"
 include "mlir/IR/AttrTypeBase.td"
-include "mlir/IR/BytecodeBase.td"
+include "mlir/IR/Interfaces.td"
 include "mlir/IR/OpBase.td"
 
 //===----------------------------------------------------------------------===//
@@ -39,14 +40,6 @@ def RVTensor_Dialect : Dialect {
 class RVTensor_Attr<string attrName, string attrMnemonic, list<Trait> traits = []>
     : AttrDef<RVTensor_Dialect, attrName, traits> {
   let mnemonic = attrMnemonic;
-}
-
-//===----------------------------------------------------------------------===//
-// RVTensor bytecode reader/writer definition.
-//===----------------------------------------------------------------------===//
-
-def RVTensorDialectTypes : DialectTypes<"RVTensor"> {
-  let elems = [];
 }
 
 //===----------------------------------------------------------------------===//

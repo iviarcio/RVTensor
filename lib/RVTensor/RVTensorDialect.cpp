@@ -13,7 +13,7 @@
 using namespace mlir;
 using namespace mlir::rvtensor;
 
-#include "RVTensor/RVTensorOpsDialect.cpp.inc"
+#include "RVTensor/RVTensorDialect.cpp.inc"
 
 //===----------------------------------------------------------------------===//
 // RVTensor dialect initialization.

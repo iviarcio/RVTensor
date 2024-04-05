@@ -9,9 +9,12 @@
 #ifndef RVTENSOR_RVTENSORDIALECT_H
 #define RVTENSOR_RVTENSORDIALECT_H
 
-#include "mlir/Bytecode/BytecodeOpInterface.h"
 #include "mlir/IR/Dialect.h"
 
-#include "RVTensor/RVTensorOpsDialect.h.inc"
+//===----------------------------------------------------------------------===//
+// RVTensor dialect, attributes, base & quantization op includes.
+//===----------------------------------------------------------------------===//
+
+#include "RVTensor/RVTensorDialect.h.inc"
 
 #endif // RVTENSOR_RVTENSORDIALECT_H

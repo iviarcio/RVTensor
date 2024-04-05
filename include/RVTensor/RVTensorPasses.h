@@ -11,7 +11,6 @@
 #include "RVTensor/RVTensorDialect.h"
 #include "RVTensor/RVTensorOps.h"
 #include "mlir/Pass/Pass.h"
-#include <memory>
 
 namespace mlir {
 namespace rvtensor {

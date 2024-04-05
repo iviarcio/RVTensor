@@ -9,10 +9,9 @@
 #ifndef RVTENSOR_OPS
 #define RVTENSOR_OPS
 
-include "RVTensor/RVTensorTypes.td"
 include "RVTensor/RVTensorDialect.td"
-include "mlir/Interfaces/InferTypeOpInterface.td"
-include "mlir/Interfaces/SideEffectInterfaces.td"
+include "RVTensor/RVTensorTypes.td"
+include "mlir/IR/CommonAttrConstraints.td"
 
 //===----------------------------------------------------------------------===//
 // RVTensor Operator: conv2d
