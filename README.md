@@ -2,12 +2,7 @@
 
 This is an out-of-tree [MLIR](https://mlir.llvm.org/) RVTensor dialect.
 
-The RISC-V Tensor dialect, abbreviated as RVTensor, introduces a suite of whole-tensor operations frequently utilized in Deep Neural
-Networks (DNNs), such as convolutions and matrix multiplications. The primary goal of RVTensor is to facilitate the conversion of these
-high-level operations into vendor-specific RISC-V intrinsic operations, leveraging the capabilities of the vector and/or matrix Instruction
-Set Architecture (ISA). This ensures that operators from popular Machine Learning (ML) frameworks like TensorFlow and PyTorch can be
-efficiently represented within RVTensor. Additionally, it is anticipated that tools will be developed to seamlessly translate operations from
-ML frameworks into RVTensor, enhancing interoperability and optimization for RISC-V based implementations.
+The RISC-V Tensor dialect, abbreviated as RVTensor, introduces a subset of tensor operations frequently utilized in Deep Neural Networks (DNNs), primarily involving convolutions and matrix multiplications. The main goal of RVTensor is to facilitate the conversion of these high-level operations into vendor-specific RISC-V intrinsic operations, leveraging the capabilities of the vector and/or matrix Instruction Set Architecture (ISA). This ensures that these operators, from popular Machine Learning (ML) frameworks such as TensorFlow and PyTorch, can be efficiently represented within RVTensor. Additionally, it is anticipated that tools will be developed to continuously translate these operations from ML frameworks into RVTensor, enhancing interoperability and optimization for RISC-V based implementations.
 
 ## Building - Component Build
 
