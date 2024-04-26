@@ -3,13 +3,14 @@ add_mlir_dialect_library(MLIRRVTensor
         RVTensorDialect.cpp
         RVTensorOps.cpp
         RVTensorPasses.cpp
+        RVTensorUtils.cpp
 
         ADDITIONAL_HEADER_DIRS
         ${PROJECT_SOURCE_DIR}/include/RVTensor
 
         DEPENDS
-        MLIRRVTensorOpsIncGen
-        MLIRRVTensorPassesIncGen
+        RVTensorOpsIncGen
+        RVTensorPassesIncGen
 
         LINK_LIBS PUBLIC
         MLIRIR
