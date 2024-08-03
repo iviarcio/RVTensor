@@ -1,8 +1,8 @@
-== RVTensor Specification
+## RVTensor Specification
 
 The RISC-V Tensor dialect (RVTensor) defines a set of primitive operators to which higher level tensor operators can be lowered in a consistent way. To remain effective and efficient to implement, the set of temsor operators must be constrained to a reasonably small set of primitive tensor operations out of which others can be constructed.
 
-=== Goals
+### Goals
 
 The goals of RVTensor include the following:
 
@@ -14,11 +14,11 @@ The goals of RVTensor include the following:
 
 * Agnostic to any single high-level framework, compiler backend stack or particular Risc-V vendor.
 
-=== Status
+### Status
 
 The RVTensor specification is a work in progress.
 
-=== Tensor Definitions
+### Tensor Definitions
 
 Tensors are essentially multidimensional data arrays. Accompanying these tensors is metadata that outlines their characteristics, which include:
 
@@ -38,7 +38,7 @@ Tensors are essentially multidimensional data arrays. Accompanying these tensors
 |MIHW|Channel Multiplier, Input channels, Filter Height, Filter Width|Weights for depthwise convolutions|
 |DOIHW|Depth, Output Channels, Input Channels, Filter Height, Filter Width|Weights for 3D convolution|
 
-=== Quantization
+### Quantization
 
 In Machine Learning frameworks, tensors can be implemented in a quantized format, where integer values are used to approximate the original floating-point numbers. Unlike some operations that might automatically adjust scales to accommodate quantized values, RVTensor's integer operations require explicit handling. Quantization points, or q-point values, must be explicitly provided to each operator, ensuring accurate processing in line with each operator's specific requirements.
 
@@ -48,9 +48,9 @@ For convolution operators, scaling of the input is not necessary. The integer im
 
 When operations involve two quantized tensors, they must represent the same numerical range for the results to be considered valid. In such scenarios, RVTensor anticipates the use of RESCALE operators as needed to align 32-bit integer values within a common range. There is a variety of valid choices for scale factors and the selection of a common range. RVTensor does not prescribe specific scale factors and ranges that must be used. Compilers generating RVTensor sequences are encouraged to select a range that prevents overflow and maximizes the accuracy of the output.
 
-=== RVTensor Operators
+### RVTensor Operators
 
-==== CONV2D
+#### CONV2D
 
 Performs a 2D convolution over the given tensor input, using the weight tensor.
 
@@ -66,7 +66,7 @@ Performs a 2D convolution over the given tensor input, using the weight tensor.
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
 
-==== CONV3D
+#### CONV3D
 
 Performs a 3D convolution over the given input tensor.
 
@@ -82,7 +82,7 @@ Performs a 3D convolution over the given input tensor.
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,OD,IC,OH,OW]|5|Output tensor|
 
-==== DEPTHWISE_CONV2D
+#### DEPTHWISE_CONV2D
 
 Performs 2D convolutions separately over each channel of the given tensor input, using the weight tensor.
 
@@ -98,7 +98,7 @@ Performs 2D convolutions separately over each channel of the given tensor input,
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,C*M,OH,OW]|4|Output tensor|
 
-==== TRANSPOSE_CONV2D
+#### TRANSPOSE_CONV2D
 
 Performs a 2D transposed convolution over the given tensor input, using the weights tensor.
 
@@ -113,7 +113,7 @@ Performs a 2D transposed convolution over the given tensor input, using the weig
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,OC,OH,OW]|4|Output tensor|
 
-==== FULLY_CONNECTED
+#### FULLY_CONNECTED
 
 Performs a fully connected network.
 
@@ -126,7 +126,7 @@ Performs a fully connected network.
 |Attribute|T<weight_t>|w_qpoint|-|0|Weight q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,OC]|2|Output tensor|
 
-==== MATMUL
+#### MATMUL
 
 |Argument|Type|Name|Shape|Rank|Description|
 |--------|----|----|-----|----|-----------|
@@ -136,7 +136,7 @@ Performs a fully connected network.
 |Attribute|T<in_t>|B_qpoint|-|0|Input tensor B q-point. Must be zero for non-quantized types.|
 |Output|T<out_t>|output|[N,H,W]|3|Output tensor, N matrices of size HxW|
 
-==== RESCALE
+#### RESCALE
 
 Rescale quantized values into a new domain. This function scales by factor: multiplier * 2^-shift^.
 
@@ -153,7 +153,7 @@ Rescale quantized values into a new domain. This function scales by factor: mult
 |Attribute|T<bool_t>|in_unsigned|-|0|If True, treat the input values as unsigned.|
 |Attribute|T<bool_t>|out_unsigned|-|0|If True, treat the output values as unsigned.|
 
-==== RESHAPE
+#### RESHAPE
 
 Returns a tensor with the same type/values as the input, with a new shape specified by the shape argument. Reshape may operate on tensors of any rank. No data conversion happens during a reshape operation.
 
@@ -163,7 +163,7 @@ Returns a tensor with the same type/values as the input, with a new shape specif
 |Input|shape_t<>|shape|-||shape_t giving the new shape.|
 |Output|T<in_out_t>|output|shape|1 to MAX_RANK|Output tensor of same type, size as the input tensor|
 
-==== TRANSPOSE
+#### TRANSPOSE
 
 Permutes the dimensions of the input tensor input1 based on the perms argument.
 Each value in the perms list must be a valid dimension of the input tensor and may not be repeated.
